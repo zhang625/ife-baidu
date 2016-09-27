@@ -1,0 +1,111 @@
+.controller{
+	min-width: 120px;
+	width: 20vw;
+	border:1px solid black;
+}
+
+.anm{
+	min-width: 500px;
+	width: 40vw;
+}
+
+.controller,.anm{
+	height: 80vh;
+	min-height: 500px;
+	margin: 5vh 2vw;
+	padding: 0;
+	display: inline-block;
+	float: left;
+	overflow: hidden;
+}
+
+.command{
+	min-height: 35vh;
+	height: 50%;
+	width: 100%;
+	margin:10px auto;
+	border-bottom: 1px solid black;
+}
+
+.creatSpaceship button{
+	padding: 2px 2vw;
+	margin: 5px auto;
+	text-align: center;
+	display: block;
+}
+
+.spaceShipcontrol{
+	margin: 5px 0;
+	padding-left: 10px;
+}
+
+.spaceShipcontrol .title,.consoleData .title{
+	margin:5px 0;
+}
+
+.spaceShipcontrol button{
+	margin-left: 5px;
+}
+
+.consoleData .consoleLog{
+	margin: 5px auto;
+	display: block;
+}
+
+.pic{
+	width: 400px;
+	height: 400px;
+	margin: 50px auto;
+	position: relative;
+	background-color: white;
+	display: flex;
+	display: -webkit-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.planet{
+	width: 160px;
+	height: 160px;
+	display: inline-block;
+	position: absolute;
+	background-color: blue;
+	border-color: 1px solid blue;
+	border-radius: 50%;
+	z-index: 10;
+}
+
+.spaceShip{
+	height: 20px;
+	width: 60px;
+	border:1px solid black;
+	border-radius:10px 0 0 10px;
+	position: absolute;
+	/*transform: rotate(90deg);/*动态*/
+}
+
+#one {
+	z-index: 100;
+	top: 90px;
+	transform-origin: center 110px;
+}
+
+#two {
+	z-index: 200;
+	top: 60px;
+	transform-origin: center 140px;
+}
+
+#three {
+	z-index: 300;
+	top: 30px;
+	transform-origin: center 170px;
+}
+
+#four {
+	z-index: 400;
+	top: 0px;
+	transform-origin: center 200px;
+}
+
+
