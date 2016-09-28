@@ -125,7 +125,7 @@ $(document).ready(function() {
 	// 这个是动态控制系统，用来控制飞船的飞行，停止，电力状态
 	var animateObj = (function () {
 		var creat = function (id) {
-			let nameValue = id+'100%';
+			let nameValue = id+':100%';
 			let spaceshipCtr = '<div '+id+' class="spaceShipcontrol">对NO:'+id+'飞船发送指令：</p><p class="title"><button value="fly">飞行</button><button value="stop">停止</button><button value="destory">销毁</button></div>';	
 			let spaceship = '<input class="spaceShip" id="'+id+'" value='+nameValue+' readonly="readonly">';
 			$("#command").append(spaceshipCtr);
