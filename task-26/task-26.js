@@ -17,15 +17,13 @@ $(document).ready(function() {
 	Spaceship.prototype.dynamic = function (argument) {
 		var that = this;
 		var fly = function () {
-			that._nowState = 'fly';
 			that.timer = setInterval(function () {
 				if (that._position>=360) {that._position = 0};
-				that._position += that._speed;
+				that._position -= that._speed;		
+				animateObj.fly(that._id,that._position);
 			},200);
-			animateObj.fly(that._id,that._position);
 		};
 		var stop = function () {
-			that._nowState = 'stop';
 			clearInterval(that.timer);
 		};
 		return {
@@ -53,7 +51,7 @@ $(document).ready(function() {
 				return false; //这里返回false的原因是什么
 			};
 			// 充电
-			that._power += charge;//我觉得这里可以精简
+			that._power += that._powerRestore;//我觉得这里可以精简
 			animateObj.updataPower(that._id,that._power);
 		},500);
 		};
@@ -86,22 +84,22 @@ $(document).ready(function() {
 		var states = {
 			fly:function () {
 				that._nowState = 'fly';
-				that.dynamic.fly();
-				that.energy.discharge();
+				that.dynamic().fly();
+				that.energy().discharge();
 			},
 			stop:function () {
 				that._nowState = 'stop';
-				that.dynamic.stop();
-				that.energy.charge();
+				that.dynamic().stop();
+				that.energy().charge();
 			},
 			destory:function () {
 				that._nowState = 'destory';
 				$(that._id).css({'display':'none'});
-				somefunction(that._id);
+				Mediator.destory(that._id);
 			}
 		};
 		var massageState = function(data){
-			states[data];
+			states[data]();
 		};
 		return{
 			massageState:massageState
@@ -126,17 +124,20 @@ $(document).ready(function() {
 	var animateObj = (function () {
 		var creat = function (id) {
 			let nameValue = id+':100%';
-			let spaceshipCtr = '<div '+id+' class="spaceShipcontrol">对NO:'+id+'飞船发送指令：</p><p class="title"><button value="fly">飞行</button><button value="stop">停止</button><button value="destory">销毁</button></div>';	
+			let spaceshipCtr = '<div id=_'+id+' class="spaceShipcontrol"><p class="title">对NO:'+id+'飞船发送指令：</p><button value="fly">飞行</button><button value="stop">停止</button><button value="destory">销毁</button></div>';	
 			let spaceship = '<input class="spaceShip" id="'+id+'" value='+nameValue+' readonly="readonly">';
 			$("#command").append(spaceshipCtr);
 			$("#spaceShipUnit").append(spaceship);
 		};
 		var updataPower = function (id,powerData) {
+			let thatId = '#'+id;
 			let inputData = id+':'+powerData+'%';
-			$(id).val(inputData);
+			$(thatId).val(inputData);
 		};
-		var fly = function (id,positons) {
-			$(id).css({'transform':rotate(+positions+deg)})
+		var fly = function (id,positions) {
+			let thatId = '#'+id;
+			let degValue = "rotate("+positions+"deg)";
+			$(thatId).css({"transform":degValue});
 		};
 		return {
 			creat : creat,
@@ -165,7 +166,7 @@ $(document).ready(function() {
 		};
 		var _destorySpaceship = function (obj) {
 			let objIndex =  -1;
-			spaceshipArry.foreach(function(item,index) {
+			spaceshipArry.forEach(function(item,index) {
 				if (item._id = obj._id) {
 					objIndex = index;
 				}
@@ -206,8 +207,8 @@ $(document).ready(function() {
 					case 'destory':
 					case 'fly':
 					case 'stop':					  
-					  	spaceshipArry.foreach(function (item,index) {
-					  		Spaceship.receiveManage(msgData).receiver();
+					  	spaceshipArry.forEach(function (item,index) {
+					  		item.receiveManage(msgData).receiver();
 					  	});					  
 					  break;
 					default:
@@ -220,7 +221,7 @@ $(document).ready(function() {
 		};
 		return {
 			send:send,
-			// destory:privateFn.destory
+			destory:privateFn.destory
 		}
 
 	})();
@@ -249,7 +250,9 @@ $(document).ready(function() {
 	})();
 
 	// 通过按钮来控制状态，下面来监听按钮的点击状态
-	$('#command button').on('click',function(){
+	$('#command').on('click','button',function(e){
+		// $(this:target);
+		// if ($('#command:target') =="BUTTON") {
 		var commandVal = $(this).val();
 		switch (commandVal){
 			case 'creat' : 
@@ -258,13 +261,14 @@ $(document).ready(function() {
 			 case 'fly':
 			 case 'stop':
 			 case 'destory':
-			   	let spaceshipId = $(this).parent().attr('id');
+			   	let spaceshipId = $(this).parent().attr('id').slice(1);
 			   	commander(commandVal,spaceshipId);
 			   break;
 			 default :
 			   console.log('some error for button');
 		}
 	})
+
 });
 
 // 我觉得应该有个飞船控制系统，用来记录飞船的数量，控制飞船的创造和
