@@ -127,9 +127,9 @@ $(document).ready(function() {
 		var creat = function (id) {
 			let nameValue = id+'100%';
 			let spaceshipCtr = '<div '+id+' class="spaceShipcontrol">对NO:'+id+'飞船发送指令：</p><p class="title"><button value="fly">飞行</button><button value="stop">停止</button><button value="destory">销毁</button></div>';	
-			let spaceship = '<input class="spaceShip" id='+id+' value='+nameValue+' readonly="readonly">';
+			let spaceship = '<input class="spaceShip" id="'+id+'" value='+nameValue+' readonly="readonly">';
 			$("#command").append(spaceshipCtr);
-			$("spaceShipUnit").append(spaceship);
+			$("#spaceShipUnit").append(spaceship);
 		};
 		var updataPower = function (id,powerData) {
 			let inputData = id+':'+powerData+'%';
@@ -186,6 +186,7 @@ $(document).ready(function() {
 			if (id) {
 			   var spaceship = new Spaceship(id);
 			   _addSapceship(spaceship);
+			   animateObj.creat(id);
 			   // 这里应该有个显示画面，将生成的东西显示到页面
 			}
 			},
@@ -225,10 +226,6 @@ $(document).ready(function() {
 	})();
 
 
-
-
-
-
 	// 这个是指挥官系统
 	var commander = function(state,id){
 		var mandate = {
@@ -237,9 +234,6 @@ $(document).ready(function() {
 		};
 		Mediator.send(mandate);
 	};
-
-
-
 
 	// 这个是用来显示飞船的状态的
 	var ConsoleNote = (function (noteDate) {
