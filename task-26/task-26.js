@@ -4,13 +4,13 @@ $(document).ready(function() {
 	// 通过构造函数、原型方法来创建对象
 	function Spaceship() {
 		this._id = arguments[0] || '404';
-		this._speed = arguments[1].speed || 5;
+		this._speed = 5 || arguments[1].speed;
 		// this._energySystem = arguments[0].energy || 3;
-		this._power = arguments[1].power || 100;
-		this._powerConsume = arguments[1].consume || 5;
-		this._powerRestore = arguments[1].restory || 2
-		this._nowState = arguments[1].commod || 'stop';
-		this._position = arguments[2].position || 0;
+		this._power = 100 || arguments[1].power;
+		this._powerConsume = 5 || arguments[1].consume;
+		this._powerRestore =2 || arguments[1].restory;
+		this._nowState ='stop';
+		this._position =0;
 	}
 
 	// 这个是飞船的动力系统，借鉴了dontry大神的代码模式
@@ -146,7 +146,7 @@ $(document).ready(function() {
 	})();
 
 		// 传输消息系统,这个东西是船速介质，设计了私有变量，私有方法和公有方法。
-	var Mediator = function () {
+	var Mediator = (function () {
 		var that = this;
 		// 这里定义了三个私有变量，用来记录传递成功的概率、创造飞船的id————这里的id我是先确定好的————、创建好了的飞船对象
 		var probability = 0.3,
@@ -195,7 +195,7 @@ $(document).ready(function() {
 			}
 		}
 
-		that.prototype.send = function (msgData) {
+		var send = function (msgData) {
 			if (Math.random() > probability) {
 				var msg = '';
 				switch (msgData.state) {
@@ -222,7 +222,7 @@ $(document).ready(function() {
 			// destory:privateFn.destory
 		}
 
-	}();
+	})();
 
 
 
@@ -234,7 +234,7 @@ $(document).ready(function() {
 		var mandate = {
 			id : id,
 			state: state
-		},
+		};
 		Mediator.send(mandate);
 	};
 
@@ -249,7 +249,7 @@ $(document).ready(function() {
 			consoleArea.val(consoleArea.val()+addData);
 		}
 		return {
-			addNote:addNote;
+			addNote:addNote
 			}
 		
 	})();
@@ -259,15 +259,13 @@ $(document).ready(function() {
 		var commandVal = $(this).val();
 		switch (commandVal){
 			case 'creat' : 
-			 commadner (commandVal);
+			 commander(commandVal);
 			 break;
 			 case 'fly':
 			 case 'stop':
 			 case 'destory':
-			   function () {
 			   	let spaceshipId = $(this).parent().attr('id');
 			   	commander(commandVal,spaceshipId);
-			   };
 			   break;
 			 default :
 			   console.log('some error for button');
