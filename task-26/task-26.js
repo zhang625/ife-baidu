@@ -17,13 +17,16 @@ $(document).ready(function() {
 	Spaceship.prototype.dynamic = function (argument) {
 		var that = this;
 		var fly = function () {
+			console.log('fly');
 			that.timer = setInterval(function () {
+				if (that._power <= 0) {clearInterval(that.timer)};
 				if (that._position>=360) {that._position = 0};
 				that._position -= that._speed;		
 				animateObj.fly(that._id,that._position);
 			},200);
 		};
 		var stop = function () {
+			console.log(stop);
 			clearInterval(that.timer);
 		};
 		return {
@@ -51,7 +54,7 @@ $(document).ready(function() {
 				return false; //这里返回false的原因是什么
 			};
 			// 充电
-			that._power += that._powerRestore;//我觉得这里可以精简
+			that._power += that._powerRestore
 			animateObj.updataPower(that._id,that._power);
 		},500);
 		};
@@ -94,8 +97,8 @@ $(document).ready(function() {
 			},
 			destory:function () {
 				that._nowState = 'destory';
-				$(that._id).css({'display':'none'});
-				Mediator.destory(that._id);
+				$('#'+that._id).css({'display':'none'});
+				Mediator.destory(that);
 			}
 		};
 		var massageState = function(data){
@@ -188,7 +191,6 @@ $(document).ready(function() {
 			   var spaceship = new Spaceship(id);
 			   _addSapceship(spaceship);
 			   animateObj.creat(id);
-			   // 这里应该有个显示画面，将生成的东西显示到页面
 			}
 			},
 			destory:function (obj) {
