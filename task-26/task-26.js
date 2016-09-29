@@ -99,6 +99,7 @@ $(document).ready(function() {
 				that._nowState = 'destory';
 				$('#'+that._id).css({'display':'none'});
 				Mediator.destory(that);
+				animateObj.destory(that._id);
 			}
 		};
 		var massageState = function(data){
@@ -142,10 +143,17 @@ $(document).ready(function() {
 			let degValue = "rotate("+positions+"deg)";
 			$(thatId).css({"transform":degValue});
 		};
+		var destory = function (id){
+			let spaceshipId = '#'+id;
+			let commandId = '#_'+id;
+			$(spaceshipId).remove();
+			$(commandId).remove();
+		}
 		return {
 			creat : creat,
 			updataPower : updataPower,
-			fly : fly
+			fly : fly,
+			destory : destory
 		};
 	})();
 
