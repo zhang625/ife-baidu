@@ -15,13 +15,15 @@
 	<label class="form-grout" for="outSchool">
 		<input name="schoolStatus"  id="outSchool" type="radio" value="out">离校学生
 	</label>
-	<div class="form-grout company">
+	<div class="form-grout company" id="companyArticle" style="display: none;">
 		<label for="companyInput" class="title">就业单位</label>
 		<input type="text" id="companyInput" class="companyInput">
 	</div>
-	<div class="form-grout schoolInf">
+	<div class="form-grout schoolInf" id="schoolArticle" style="display: none;">
 		<label for="" class="title">学校</label>
-		<select name="cityInf" id="cityInf" class="selectStyle citySelect"></select>
+		<select name="cityInf" id="cityInf" class="selectStyle citySelect">
+			<option value=""></option>
+		</select>
 		<select name="university" id="university" class="selectStyle universitySelect"></select>
 	</div>
 </article>
