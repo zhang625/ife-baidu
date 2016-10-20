@@ -1,0 +1,61 @@
+.contain{
+	margin: 20px;
+	position: relative;
+}
+
+.contain .row{
+	margin: 0;
+	padding: 0;
+}
+
+.contain .row .cell{
+	box-sizing:border-box;
+	height: 50px;
+	width: 50px;
+	min-width: 50px;
+	min-height: 50px;
+	padding: 0;
+	margin: 0;
+	display: table-cell;
+	border-right: 1px solid gray;
+	border-bottom: 1px solid gray;
+}
+
+.contain .row .cell:first-child{
+	border-left: 2px solid black;
+}
+
+.contain .row .cell:last-child{
+	border-right: 2px solid black;
+}
+
+.contain .row.first_row .cell{
+	border-top: 2px solid black;
+}
+
+.contain .row.last_row .cell{
+	border-bottom: 2px solid black;
+}
+
+.contain .action_cell{
+	box-sizing: border-box;
+	height: 50px;
+	width: 50px;
+	min-height: 50px;
+	min-width: 50px;
+	border-top: 15px solid blue;
+	position: absolute;
+	background-color: red;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	/*transform: rotate(30deg);
+	-ms-transform: rotate(30deg);		
+	-webkit-transform: rotate(30deg);	
+	-o-transform: rotate(30deg);	
+	-moz-transform: rotate(30deg);		*/
+}
+
+.console{
+	margin: 20px;
+}
